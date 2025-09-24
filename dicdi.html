@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dicionário Python: Listas e Dicionários</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+    :root {
+        --primary: #1e1e2f;
+        --secondary: #2a2a3d;
+        --accent1: #ff6ec7;
+        --accent2: #00ffff;
+        --accent3: #fffc00;
+        --text: #ffffff;
+        --text-secondary: #cccccc;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--primary);
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text);
+        line-height: 1.6;
+    }
+
+    header {
+        text-align: center;
+        padding: 30px 20px 10px 20px;
+        background: linear-gradient(135deg, #2a2a3d 0%, #1e1e2f 100%);
+        border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5em;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+        -webkit-background-clip: text;
+        color: transparent;
+        background-size: 300% 300%;
+        animation: gradient 8s ease infinite;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.1em;
+        max-width: 800px;
+        margin: 0 auto 20px auto;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 15px 20px;
+        background-color: rgba(42, 42, 61, 0.7);
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    #search-container {
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
+    }
+
+    #search {
+        padding: 12px 15px;
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid var(--accent2);
+        font-size: 1em;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        transition: all 0.3s;
+    }
+
+    #search:focus {
+        border-color: var(--accent1);
+        box-shadow: 0 0 10px rgba(255, 110, 199, 0.3);
+    }
+
+    #search::placeholder {
+        color: var(--text-secondary);
+    }
+
+    #filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        background-color: var(--secondary);
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+    }
+
+    .filter-btn:hover {
+        background-color: rgba(255, 110, 199, 0.2);
+    }
+
+    .filter-btn.active {
+        background-color: var(--accent1);
+        color: var(--primary);
+    }
+
+    #cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        padding: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background-color: var(--secondary);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+    }
+
+    .category {
+        font-size: 0.8em;
+        color: var(--accent3);
+        margin-bottom: 6px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .level {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.7em;
+        margin-left: 8px;
+        font-weight: bold;
+    }
+
+    .level-basic {
+        background-color: rgba(0, 255, 255, 0.2);
+        color: var(--accent2);
+    }
+
+    .level-intermediate {
+        background-color: rgba(255, 252, 0, 0.2);
+        color: var(--accent3);
+    }
+
+    .level-advanced {
+        background-color: rgba(255, 110, 199, 0.2);
+        color: var(--accent1);
+    }
+
+    .english {
+        font-size: 1.4em;
+        color: var(--accent1);
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .portuguese {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        color: var(--accent2);
+        font-weight: 500;
+    }
+
+    .description {
+        font-size: 0.95em;
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .example {
+        display: none;
+        background-color: rgba(22, 22, 42, 0.8);
+        color: #00ffcc;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-family: 'Courier New', monospace;
+        line-height: 1.4em;
+        transition: all 0.3s ease;
+        border-left: 3px solid var(--accent1);
+        overflow-x: auto;
+    }
+
+    .example.show {
+        display: block;
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from {opacity:0; transform: translateY(-5px);}
+        to {opacity:1; transform: translateY(0);}
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        font-size: 0.8em;
+        color: var(--text-secondary);
+    }
+
+    .complexity {
+        font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 2em;
+        }
+        
+        #cards {
+            grid-template-columns: 1fr;
+            padding: 15px;
+        }
+        
+        .controls {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #search-container {
+            min-width: 100%;
+        }
+    }
+
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px;
+        color: var(--text-secondary);
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Dicionário Python: Listas e Dicionários</h1>
+    <p class="subtitle">Guia completo do básico ao avançado com exemplos práticos e aplicações reais</p>
+</header>
+
+<div class="controls">
+    <div id="search-container">
+        <input type="text" id="search" placeholder="Buscar por palavra, conceito ou categoria...">
+    </div>
+    <div id="filters">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="listas">Listas</button>
+        <button class="filter-btn" data-filter="dicionarios">Dicionários</button>
+        <button class="filter-btn" data-filter="basico">Básico</button>
+        <button class="filter-btn" data-filter="intermediario">Intermediário</button>
+        <button class="filter-btn" data-filter="avancado">Avançado</button>
+    </div>
+</div>
+
+<div id="cards">
+    <!-- CONCEITOS BÁSICOS DE LISTAS -->
+    <div class="card" data-keywords="list lista criar construção básico" data-category="listas" data-level="basico">
+        <div class="category">Listas <span class="level level-basic">Básico</span></div>
+        <div class="english">list() / []</div>
+        <div class="portuguese">Criar Lista</div>
+        <div class="description">Cria uma lista vazia ou a partir de elementos</div>
+        <div class="example">
+<pre>
+# Criar lista vazia
+lista_vazia = []
+lista_vazia2 = list()
+
+# Criar lista com elementos
+frutas = ["maçã", "banana", "laranja"]
+numeros = list([1, 2, 3, 4, 5])
+
+print(frutas)  # ['maçã', 'banana', 'laranja']
+print(numeros) # [1, 2, 3, 4, 5]
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(1) ou O(n)</span>
+        </div>
+    </div>
+
+    <div class="card" data-keywords="append adicionar lista final básico" data-category="listas" data-level="basico">
+        <div class="category">Listas <span class="level level-basic">Básico</span></div>
+        <div class="english">append()</div>
+        <div class="portuguese">adicionar ao final</div>
+        <div class="description">Adiciona um elemento ao final da lista</div>
+        <div class="example">
+<pre>
+lista = [1, 2, 3]
+lista.append(4)
+lista.append(5)
+
+print(lista)  # [1, 2, 3, 4, 5]
+
+# Adicionando diferentes tipos
+lista.append("texto")
+lista.append([6, 7])  # Adiciona lista como elemento
+
+print(lista)  # [1, 2, 3, 4, 5, 'texto', [6, 7]]
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(1) amortizado</span>
+        </div>
+    </div>
+
+    <div class="card" data-keywords="insert inserir lista posição índice básico" data-category="listas" data-level="basico">
+        <div class="category">Listas <span class="level level-basic">Básico</span></div>
+        <div class="english">insert()</div>
+        <div class="portuguese">inserir em posição</div>
+        <div class="description">Insere um elemento em uma posição específica</div>
+        <div class="example">
+<pre>
+lista = [1, 3, 4]
+lista.insert(1, 2)    # Insere 2 na posição 1
+lista.insert(0, 0)    # Insere 0 no início
+lista.insert(len(lista), 5)  # Insere no final
+
+print(lista)  # [0, 1, 2, 3, 4, 5]
+
+# Inserindo em posição além do tamanho
+lista.insert(10, 6)   # Insere no final
+print(lista)  # [0, 1, 2, 3, 4, 5, 6]
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(n)</span>
+        </div>
+    </div>
+
+    <!-- CONCEITOS INTERMEDIÁRIOS DE LISTAS -->
+    <div class="card" data-keywords="slicing fatiamento lista intervalo intermediario" data-category="listas" data-level="intermediario">
+        <div class="category">Listas <span class="level level-intermediate">Intermediário</span></div>
+        <div class="english">Slicing [start:stop:step]</div>
+        <div class="portuguese">Fatiamento de Lista</div>
+        <div class="description">Extrai subconjuntos da lista usando intervalos</div>
+        <div class="example">
+<pre>
+lista = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print(lista[2:5])     # [2, 3, 4] (índices 2 a 4)
+print(lista[:5])      # [0, 1, 2, 3, 4] (do início ao 4)
+print(lista[5:])      # [5, 6, 7, 8, 9] (do 5 ao final)
+print(lista[::2])     # [0, 2, 4, 6, 8] (pulando de 2 em 2)
+print(lista[::-1])    # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] (invertida)
+
+# Modificando com slicing
+lista[1:4] = [10, 11, 12]  # Substitui elementos
+print(lista)  # [0, 10, 11, 12, 4, 5, 6, 7, 8, 9]
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(k) onde k é o tamanho do slice</span>
+        </div>
+    </div>
+
+    <div class="card" data-keywords="comprehension listcomp list comprehension intermediario" data-category="listas" data-level="intermediario">
+        <div class="category">Listas <span class="level level-intermediate">Intermediário</span></div>
+        <div class="english">List Comprehension</div>
+        <div class="portuguese">Compreensão de Lista</div>
+        <div class="description">Cria listas de forma concisa e elegante</div>
+        <div class="example">
+<pre>
+# Sintaxe básica: [expressão for item in iterável]
+
+# Quadrados dos números de 0 a 9
+quadrados = [x**2 for x in range(10)]
+print(quadrados)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# Com condição: apenas números pares
+pares = [x for x in range(20) if x % 2 == 0]
+print(pares)  # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+# Múltiplas condições
+nums = [x for x in range(30) if x % 2 == 0 if x % 3 == 0]
+print(nums)  # [0, 6, 12, 18, 24]
+
+# Com if-else
+resultado = [x if x % 2 == 0 else -x for x in range(5)]
+print(resultado)  # [0, -1, 2, -3, 4]
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(n)</span>
+        </div>
+    </div>
+
+    <!-- CONCEITOS AVANÇADOS DE LISTAS -->
+    <div class="card" data-keywords="ordenacao sort sorted key lambda avançado" data-category="listas" data-level="avancado">
+        <div class="category">Listas <span class="level level-advanced">Avançado</span></div>
+        <div class="english">sort() vs sorted()</div>
+        <div class="portuguese">Ordenação Avançada</div>
+        <div class="description">Ordenação com parâmetros personalizados</div>
+        <div class="example">
+<pre>
+# Dados para ordenar
+pessoas = [
+    {'nome': 'João', 'idade': 30},
+    {'nome': 'Maria', 'idade': 25},
+    {'nome': 'Pedro', 'idade': 35}
+]
+
+# Ordenar por idade (crescente)
+por_idade = sorted(pessoas, key=lambda x: x['idade'])
+print(por_idade)  # Maria(25), João(30), Pedro(35)
+
+# Ordenar por nome (decrescente)
+por_nome = sorted(pessoas, key=lambda x: x['nome'], reverse=True)
+print(por_nome)  # Pedro, Maria, João
+
+# Ordenação múltipla (primeiro por idade, depois por nome)
+pessoas2 = [
+    {'nome': 'João', 'idade': 30},
+    {'nome': 'Ana', 'idade': 30},
+    {'nome': 'Maria', 'idade': 25}
+]
+
+ordenada = sorted(pessoas2, key=lambda x: (x['idade'], x['nome']))
+print(ordenada)  # Maria(25), Ana(30), João(30)
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(n log n)</span>
+        </div>
+    </div>
+
+    <!-- CONCEITOS BÁSICOS DE DICIONÁRIOS -->
+    <div class="card" data-keywords="dict dicionário criar chave valor básico" data-category="dicionarios" data-level="basico">
+        <div class="category">Dicionários <span class="level level-basic">Básico</span></div>
+        <div class="english">dict() / {}</div>
+        <div class="portuguese">Criar Dicionário</div>
+        <div class="description">Cria um dicionário vazio ou com pares chave-valor</div>
+        <div class="example">
+<pre>
+# Dicionário vazio
+vazio = {}
+vazio2 = dict()
+
+# Dicionário com elementos
+pessoa = {
+    "nome": "João",
+    "idade": 30,
+    "cidade": "São Paulo"
+}
+
+# Usando dict() com keyword arguments
+pessoa2 = dict(nome="Maria", idade=25, cidade="Rio")
+
+print(pessoa)   # {'nome': 'João', 'idade': 30, 'cidade': 'São Paulo'}
+print(pessoa2)  # {'nome': 'Maria', 'idade': 25, 'cidade': 'Rio'}
+
+# Chaves podem ser de vários tipos (desde que imutáveis)
+diverso = {
+    1: "número",
+    "texto": "string",
+    (1, 2): "tupla"
+}
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(1) ou O(n)</span>
+        </div>
+    </div>
+
+    <div class="card" data-keywords="get obter valor chave dicionário básico" data-category="dicionarios" data-level="basico">
+        <div class="category">Dicionários <span class="level level-basic">Básico</span></div>
+        <div class="english">get()</div>
+        <div class="portuguese">obter valor seguro</div>
+        <div class="description">Obtém valor de chave sem erro se não existir</div>
+        <div class="example">
+<pre>
+pessoa = {"nome": "João", "idade": 30}
+
+# Acesso seguro com get()
+print(pessoa.get("nome"))      # João
+print(pessoa.get("email"))     # None (sem erro)
+print(pessoa.get("email", "Não informado"))  # Valor padrão
+
+# Comparação com acesso direto (pode causar KeyError)
+try:
+    print(pessoa["email"])     # KeyError!
+except KeyError as e:
+    print(f"Erro: {e}")
+
+# get() é ideal para valores opcionais
+config = {"tema": "escuro", "idioma": "pt"}
+tema = config.get("tema", "claro")
+som = config.get("volume", 50)  # Usa valor padrão
+
+print(f"Tema: {tema}, Som: {som}")  # Tema: escuro, Som: 50
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(1)</span>
+        </div>
+    </div>
+
+    <!-- CONCEITOS INTERMEDIÁRIOS DE DICIONÁRIOS -->
+    <div class="card" data-keywords="comprehension dictcomp dicionário comprehension intermediario" data-category="dicionarios" data-level="intermediario">
+        <div class="category">Dicionários <span class="level level-intermediate">Intermediário</span></div>
+        <div class="english">Dict Comprehension</div>
+        <div class="portuguese">Compreensão de Dicionário</div>
+        <div class="description">Cria dicionários de forma concisa</div>
+        <div class="example">
+<pre>
+# Sintaxe: {chave: valor for item in iterável}
+
+# Quadrados dos números
+quadrados = {x: x**2 for x in range(5)}
+print(quadrados)  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# A partir de outra lista
+nomes = ["Ana", "João", "Maria"]
+tamanhos = {nome: len(nome) for nome in nomes}
+print(tamanhos)  # {'Ana': 3, 'João': 4, 'Maria': 5}
+
+# Com condição
+pares = {x: x*2 for x in range(10) if x % 2 == 0}
+print(pares)  # {0: 0, 2: 4, 4: 8, 6: 12, 8: 16}
+
+# Invertendo chave-valor
+original = {"a": 1, "b": 2, "c": 3}
+invertido = {v: k for k, v in original.items()}
+print(invertido)  # {1: 'a', 2: 'b', 3: 'c'}
+
+# Combinando duas listas
+chaves = ["a", "b", "c"]
+valores = [1, 2, 3]
+combinado = {k: v for k, v in zip(chaves, valores)}
+print(combinado)  # {'a': 1, 'b': 2, 'c': 3}
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(n)</span>
+        </div>
+    </div>
+
+    <!-- CONCEITOS AVANÇADOS DE DICIONÁRIOS -->
+    <div class="card" data-keywords="defaultdict collections dicionário padrão avançado" data-category="dicionarios" data-level="avancado">
+        <div class="category">Dicionários <span class="level level-advanced">Avançado</span></div>
+        <div class="english">defaultdict</div>
+        <div class="portuguese">Dicionário com Valor Padrão</div>
+        <div class="description">Dicionário que retorna valor padrão para chaves inexistentes</div>
+        <div class="example">
+<pre>
+from collections import defaultdict
+
+# Dicionário com lista como valor padrão
+lista_dict = defaultdict(list)
+lista_dict["frutas"].append("maçã")
+lista_dict["frutas"].append("banana")
+lista_dict["cores"].append("azul")
+
+print(lista_dict)  # defaultdict(list, {'frutas': ['maçã', 'banana'], 'cores': ['azul']})
+print(lista_dict["inexistente"])  # [] (lista vazia, sem erro)
+
+# Contando ocorrências
+texto = "python é poderoso e python é simples"
+contador = defaultdict(int)
+
+for palavra in texto.split():
+    contador[palavra] += 1
+
+print(contador)  # defaultdict(int, {'python': 2, 'é': 2, 'poderoso': 1, 'e': 1, 'simples': 1})
+
+# Agrupando por categoria
+pessoas = [
+    {"nome": "João", "cidade": "SP"},
+    {"nome": "Maria", "cidade": "RJ"},
+    {"nome": "Pedro", "cidade": "SP"}
+]
+
+por_cidade = defaultdict(list)
+for pessoa in pessoas:
+    por_cidade[pessoa["cidade"]].append(pessoa["nome"])
+
+print(por_cidade)  # defaultdict(list, {'SP': ['João', 'Pedro'], 'RJ': ['Maria']})
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: O(1) para acesso</span>
+        </div>
+    </div>
+
+    <!-- COMBINAÇÕES E ESTRUTURAS COMPLEXAS -->
+    <div class="card" data-keywords="combinação lista dicionário estrutura dados complexa avançado" data-category="dicionarios listas" data-level="avancado">
+        <div class="category">Combinações <span class="level level-advanced">Avançado</span></div>
+        <div class="english">Lista de Dicionários</div>
+        <div class="portuguese">Estrutura Complexa</div>
+        <div class="description">Padrão comum em aplicações reais com dados estruturados</div>
+        <div class="example">
+<pre>
+# Dados de exemplo (usuários)
+usuarios = [
+    {"id": 1, "nome": "Ana", "idade": 25, "ativo": True},
+    {"id": 2, "nome": "João", "idade": 30, "ativo": False},
+    {"id": 3, "nome": "Maria", "idade": 22, "ativo": True},
+    {"id": 4, "nome": "Pedro", "idade": 35, "ativo": True}
+]
+
+# 1. Filtrando usuários ativos
+ativos = [user for user in usuarios if user["ativo"]]
+print("Ativos:", [u["nome"] for u in ativos])  # ['Ana', 'Maria', 'Pedro']
+
+# 2. Ordenando por idade (decrescente)
+por_idade = sorted(usuarios, key=lambda x: x["idade"], reverse=True)
+print("Por idade:", [u["nome"] for u in por_idade])  # ['Pedro', 'João', 'Ana', 'Maria']
+
+# 3. Criando dicionário indexado por ID
+por_id = {user["id"]: user for user in usuarios}
+print("Por ID:", por_id[1]["nome"])  # Ana
+
+# 4. Agrupando por faixa etária
+faixas = {"jovem": [], "adulto": [], "senior": []}
+for user in usuarios:
+    if user["idade"] < 25:
+        faixas["jovem"].append(user["nome"])
+    elif user["idade"] < 35:
+        faixas["adulto"].append(user["nome"])
+    else:
+        faixas["senior"].append(user["nome"])
+
+print("Faixas:", faixas)  # {'jovem': ['Maria'], 'adulto': ['Ana', 'João'], 'senior': ['Pedro']}
+
+# 5. Estatísticas básicas
+idades = [user["idade"] for user in usuarios]
+media_idade = sum(idades) / len(idades)
+print(f"Média de idade: {media_idade:.1f}")  # Média de idade: 28.0
+</pre>
+        </div>
+        <div class="card-footer">
+            <span class="complexity">Complexidade: Varia conforme operação</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Configuração dos cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+            const ex = card.querySelector('.example');
+            ex.classList.toggle('show');
+            
+            // Fechar outros cards abertos (opcional)
+            // document.querySelectorAll('.example.show').forEach(otherEx => {
+            //     if (otherEx !== ex) otherEx.classList.remove('show');
+            // });
+        });
+    });
+
+    // Sistema de busca aprimorado
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('input', performSearch);
+
+    // Sistema de filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Atualizar botões ativos
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            performSearch();
+        });
+    });
+
+    function performSearch() {
+        const termo = searchInput.value.toLowerCase();
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        
+        let visibleCards = 0;
+        
+        document.querySelectorAll('.card').forEach(card => {
+            const keywords = card.dataset.keywords.toLowerCase();
+            const english = card.querySelector('.english').textContent.toLowerCase();
+            const portuguese = card.querySelector('.portuguese').textContent.toLowerCase();
+            const description = card.querySelector('.description').textContent.toLowerCase();
+            const category = card.dataset.category;
+            const level = card.dataset.level;
+            
+            // Verificar busca por texto
+            const textMatch = termo === '' || 
+                keywords.includes(termo) || 
+                english.includes(termo) || 
+                portuguese.includes(termo) ||
+                description.includes(termo);
+            
+            // Verificar filtro ativo
+            let filterMatch = true;
+            if (activeFilter !== 'all') {
+                if (activeFilter === 'listas' || activeFilter === 'dicionarios') {
+                    filterMatch = category === activeFilter;
+                } else {
+                    filterMatch = level === activeFilter;
+                }
+            }
+            
+            const shouldShow = textMatch && filterMatch;
+            card.style.display = shouldShow ? 'block' : 'none';
+            
+            if (shouldShow) visibleCards++;
+        });
+        
+        // Mostrar mensagem se nenhum card for encontrado
+        const emptyState = document.getElementById('empty-state');
+        if (visibleCards === 0) {
+            if (!emptyState) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.id = 'empty-state';
+                emptyDiv.className = 'empty-state';
+                emptyDiv.innerHTML = `
+                    <h3>Nenhum resultado encontrado</h3>
+                    <p>Tente usar termos diferentes ou verifique os filtros aplicados</p>
+                `;
+                document.getElementById('cards').appendChild(emptyDiv);
+            }
+        } else if (emptyState) {
+            emptyState.remove();
+        }
+    }
+
+    // Focar na busca quando a página carregar
+    window.addEventListener('load', () => {
+        searchInput.focus();
+    });
+</script>
+
+</body>
+</html>
