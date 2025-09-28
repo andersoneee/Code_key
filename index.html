@@ -118,12 +118,13 @@
             color: var(--primary-color);
         }
 
-        /* CodeKey Section - AJUSTES AQUI */
+        /* CodeKey Section */
         .codekey-section {
             background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7));
             padding-top: 100px;
             justify-content: flex-start;
             padding-bottom: 50px;
+            min-height: 100vh;
         }
 
         .code-key-container {
@@ -132,7 +133,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             position: relative;
             perspective: 1000px;
             margin-top: 80px;
@@ -210,8 +211,7 @@
         .subtitle {
             font-family: 'Exo 2', sans-serif;
             font-size: 1.2rem;
-            margin-top: 2rem;
-            margin-bottom: 3rem; /* AUMENTEI O ESPAÇO AQUI */
+            margin: 1rem 0 3rem 0;
             opacity: 0;
             transform: translateY(20px);
             transition: all 1s ease 2s;
@@ -230,7 +230,7 @@
         .description {
             max-width: 800px;
             text-align: center;
-            margin: 2rem 0;
+            margin: 1rem 0 4rem 0;
             font-size: 1.1rem;
             line-height: 1.6;
             opacity: 0;
@@ -243,20 +243,42 @@
             transform: translateY(0);
         }
 
+        /* NOVA SEÇÃO PARA O GRÁFICO */
+        .stats-section {
+            min-height: 80vh;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stats-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
         /* Seção de Gráfico e Imagens de Tecnologia */
         .tech-images {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* MUDADO PARA FLEX-START */
             gap: 2rem;
-            margin: 3rem 0;
+            margin: 2rem 0;
             flex-wrap: wrap;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 1s ease 2.4s;
+            transition: all 1s ease 0.5s;
         }
 
-        .reveal .tech-images {
+        .stats-section.reveal .tech-images {
             opacity: 1;
             transform: translateY(0);
         }
@@ -307,19 +329,18 @@
             transform: translateY(0);
         }
 
-        /* Estilo do Gráfico Estatístico - CORREÇÃO APLICADA AQUI */
+        /* GRÁFICO COMPLETAMENTE REFEITO */
         .chart-container {
-            width: 380px;
-            height: 280px;
+            width: 450px;
+            height: 350px; /* AUMENTEI A ALTURA TOTAL */
             background: rgba(10, 10, 30, 0.7);
             border-radius: 15px;
             border: 2px solid rgba(0, 240, 255, 0.3);
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-            padding: 25px;
+            padding: 30px 25px; /* MAIS PADDING */
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* MANTIVE HIDDEN */
             transition: all 0.3s ease;
-            margin-top: 20px; /* ADICIONEI ESPAÇO ACIMA DO GRÁFICO */
         }
 
         .chart-container:hover {
@@ -330,8 +351,8 @@
 
         .chart-title {
             text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 35px;
+            font-size: 1.3rem;
+            margin-bottom: 50px; /* MAIS ESPAÇO */
             color: var(--primary-color);
             font-family: 'Orbitron', sans-serif;
             font-weight: 600;
@@ -340,7 +361,7 @@
 
         .chart {
             width: 100%;
-            height: 160px;
+            height: 180px; /* ALTURA FIXA PARA AS BARRAS */
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
@@ -352,33 +373,34 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100%;
+            height: 180px; /* ALTURA FIXA */
             position: relative;
-            width: 70px;
+            width: 80px;
+            justify-content: flex-end; /* ALINHA NA BASE */
         }
 
         .bar {
-            width: 30px;
+            width: 35px;
             background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
             border-radius: 5px 5px 0 0;
             position: relative;
             transition: height 2s ease-in-out;
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-            margin-bottom: 50px; /* AUMENTEI O ESPAÇO AQUI */
+            min-height: 20px; /* ALTURA MÍNIMA */
         }
 
         .bar-value {
             position: absolute;
-            top: -50px; /* AUMENTEI A DISTÂNCIA AQUI */
+            top: -40px; /* POSICIONAMENTO ACIMA DA BARRA */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--primary-color);
             font-weight: bold;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--primary-color);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
             white-space: nowrap;
             z-index: 10;
             min-width: 50px;
@@ -387,21 +409,22 @@
 
         .bar-label {
             position: absolute;
-            bottom: -40px; /* AUMENTEI A DISTÂNCIA AQUI */
+            bottom: -35px; /* POSICIONAMENTO ABAIXO DA BARRA */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #aaa;
             text-align: center;
             white-space: nowrap;
             width: 100%;
+            font-weight: 500;
         }
 
         .chart-stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 30px;
-            font-size: 0.8rem;
+            margin-top: 60px; /* MAIS ESPAÇO ACIMA DOS STATS */
+            font-size: 0.9rem;
         }
 
         .stat-item {
@@ -411,12 +434,12 @@
         .stat-value {
             color: var(--primary-color);
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .stat-label {
             color: #aaa;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
         }
 
         /* Quem Somos Section */
@@ -616,7 +639,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* Responsividade - CORREÇÃO DOS COLCHETES NO CELULAR */
+        /* Responsividade */
         @media (max-width: 768px) {
             .header {
                 padding: 1rem;
@@ -670,37 +693,50 @@
             
             .codekey-section {
                 padding-top: 120px;
+                min-height: 100vh;
+            }
+            
+            .stats-section {
+                min-height: 80vh;
+                padding: 3rem 1rem;
             }
             
             .tech-images {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem;
+                align-items: center;
             }
             
             .tech-image, .chart-container {
                 width: 100%;
-                max-width: 350px;
+                max-width: 400px;
             }
             
             .chart-container {
-                height: 260px;
+                height: 320px;
+                padding: 25px 20px;
             }
             
             .chart {
-                height: 140px;
+                height: 160px;
             }
             
             .bar-value {
-                top: -45px;
-                font-size: 0.8rem;
+                top: -35px;
+                font-size: 0.9rem;
             }
             
             .bar-label {
-                bottom: -35px;
+                bottom: -30px;
             }
 
-            .subtitle {
-                margin-bottom: 2rem; /* AJUSTE PARA MOBILE */
+            .stats-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .chart-stats {
+                margin-top: 50px;
             }
         }
 
@@ -718,25 +754,32 @@
             }
             
             .chart-container {
-                height: 240px;
-                padding: 20px;
+                height: 300px;
+                padding: 20px 15px;
             }
             
             .bar {
-                width: 25px;
+                width: 28px;
             }
             
             .chart-title {
-                font-size: 1rem;
-                margin-bottom: 30px;
+                font-size: 1.1rem;
+                margin-bottom: 40px;
             }
             
             .bar-container {
-                width: 60px;
+                width: 70px;
             }
 
-            .subtitle {
-                margin-bottom: 1.5rem; /* AJUSTE PARA CELULAR PEQUENO */
+            .bar-value {
+                top: -30px;
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+
+            .bar-label {
+                bottom: -25px;
+                font-size: 0.8rem;
             }
         }
 
@@ -780,6 +823,7 @@
         <div class="logo">CodeKey & Web321</div>
         <nav class="nav-links">
             <a href="#codekey">CodeKey</a>
+            <a href="#stats">Estatísticas</a>
             <a href="#quem-somos">Quem Somos</a>
             <a href="#web321">Web321</a>
         </nav>
@@ -807,12 +851,23 @@
             <p>• <span class="highlight">Fluxos de trabalho</span> otimizados e inteligentes</p>
             <p>• <span class="highlight">Relatórios automáticos</span> e dashboards em tempo real</p>
         </div>
-
-        <!-- Seção de Gráfico e Imagens de Tecnologia -->
+        
+        <a href="https://wa.me/5511941831006?text=Seja+bem+vindo+ao+futuro,+oq+podemos+ajudar?" class="cta-button" target="_blank">SAIBA MAIS</a>
+        <div class="whatsapp-icon">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- NOVA SEÇÃO PARA ESTATÍSTICAS -->
+    <section class="stats-section" id="stats">
+        <h2 class="stats-title">EFICIÊNCIA COM AUTOMAÇÃO</h2>
+        
         <div class="tech-images">
             <!-- Gráfico Estatístico -->
             <div class="chart-container">
-                <div class="chart-title">EFICIÊNCIA COM AUTOMAÇÃO</div>
+                <div class="chart-title">RESULTADOS COMPROVADOS</div>
                 <div class="chart" id="efficiencyChart">
                     <div class="bar-container">
                         <div class="bar" style="height: 0%" data-value="95%">
@@ -859,11 +914,6 @@
                 <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Desenvolvimento web">
                 <div class="image-caption">Desenvolvimento Web</div>
             </div>
-        </div>
-        
-        <a href="https://wa.me/5511941831006?text=Seja+bem+vindo+ao+futuro,+oq+podemos+ajudar?" class="cta-button" target="_blank">SAIBA MAIS</a>
-        <div class="whatsapp-icon">
-            <i class="fab fa-whatsapp"></i>
         </div>
     </section>
     
@@ -958,14 +1008,14 @@
 
         // Iniciar animação das outras seções quando visíveis
         function startSectionAnimations() {
-            const sections = document.querySelectorAll('.quem-somos-section, .web321-section, .codekey-section');
+            const sections = document.querySelectorAll('.quem-somos-section, .web321-section, .codekey-section, .stats-section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal');
                         
-                        // Se for a seção CodeKey, animar o gráfico
-                        if (entry.target.id === 'codekey') {
+                        // Se for a seção Stats, animar o gráfico
+                        if (entry.target.id === 'stats') {
                             setTimeout(animateChart, 500);
                         }
                         
