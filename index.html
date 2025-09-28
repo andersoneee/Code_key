@@ -121,8 +121,8 @@
         /* CodeKey Section - AJUSTES AQUI */
         .codekey-section {
             background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7));
-            padding-top: 100px; /* Adiciona espaço no topo */
-            justify-content: flex-start; /* Alinha o conteúdo mais para baixo */
+            padding-top: 100px;
+            justify-content: flex-start;
             padding-bottom: 50px;
         }
 
@@ -135,7 +135,7 @@
             margin-bottom: 2rem;
             position: relative;
             perspective: 1000px;
-            margin-top: 100px; /* Empurra o título mais para baixo */
+            margin-top: 80px;
         }
 
         .bracket {
@@ -240,6 +240,162 @@
         .reveal .description {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Seção de Gráfico e Imagens de Tecnologia */
+        .tech-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 2.4s;
+        }
+
+        .reveal .tech-images {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tech-image {
+            width: 300px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .tech-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tech-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-image:hover .image-caption {
+            transform: translateY(0);
+        }
+
+        /* Estilo do Gráfico Estatístico */
+        .chart-container {
+            width: 300px;
+            height: 200px;
+            background: rgba(10, 10, 30, 0.7);
+            border-radius: 15px;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .chart {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .bar {
+            width: 25px;
+            background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: height 2s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .bar-label {
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .chart-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 0.7rem;
         }
 
         /* Quem Somos Section */
@@ -439,7 +595,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* Responsividade */
+        /* Responsividade - CORREÇÃO DOS COLCHETES NO CELULAR */
         @media (max-width: 768px) {
             .header {
                 padding: 1rem;
@@ -453,25 +609,29 @@
             }
             
             .code-key-container {
-                flex-direction: column;
-                letter-spacing: 0.3rem;
-                margin-top: 80px; /* Ajuste para mobile */
+                flex-direction: row; /* MANTÉM OS COLCHETES NA MESMA LINHA */
+                letter-spacing: 0.2rem;
+                margin-top: 60px;
+                flex-wrap: nowrap;
             }
             
             .bracket {
-                margin: 0.5rem 0;
+                margin: 0;
+                font-size: 3rem;
             }
             
             .name {
-                margin: 0.5rem 0;
+                margin: 0 0.5rem;
+                font-size: 2.5rem;
+                letter-spacing: 0.1rem;
             }
             
             .reveal .bracket.left {
-                transform: translateY(-10px);
+                transform: translateX(-10px) rotateY(0deg); /* AJUSTE PARA CELULAR */
             }
             
             .reveal .bracket.right {
-                transform: translateY(10px);
+                transform: translateX(10px) rotateY(0deg); /* AJUSTE PARA CELULAR */
             }
             
             .quem-somos-container,
@@ -487,9 +647,41 @@
                 font-size: 2em;
             }
             
-            /* Ajustes específicos para mobile */
             .codekey-section {
-                padding-top: 120px; /* Mais espaço no topo para mobile */
+                padding-top: 120px;
+            }
+            
+            .tech-images {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .tech-image, .chart-container {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .code-key-container {
+                flex-direction: row; /* SEMPRE NA MESMA LINHA */
+            }
+            
+            .bracket {
+                font-size: 2.5rem;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                height: 180px;
+                padding: 15px;
+            }
+            
+            .bar {
+                width: 20px;
             }
         }
 
@@ -559,6 +751,59 @@
             <p>• <span class="highlight">Integração de sistemas</span> e processos empresariais</p>
             <p>• <span class="highlight">Fluxos de trabalho</span> otimizados e inteligentes</p>
             <p>• <span class="highlight">Relatórios automáticos</span> e dashboards em tempo real</p>
+        </div>
+
+        <!-- Seção de Gráfico e Imagens de Tecnologia -->
+        <div class="tech-images">
+            <!-- Gráfico Estatístico -->
+            <div class="chart-container">
+                <div class="chart-title">EFICIÊNCIA COM AUTOMAÇÃO</div>
+                <div class="chart" id="efficiencyChart">
+                    <div class="bar-container">
+                        <div class="bar" style="height: 0%" data-value="95%">
+                            <div class="bar-value">95%</div>
+                        </div>
+                        <div class="bar-label">Produtividade</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 0%" data-value="87%">
+                            <div class="bar-value">87%</div>
+                        </div>
+                        <div class="bar-label">Economia</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 0%" data-value="92%">
+                            <div class="bar-value">92%</div>
+                        </div>
+                        <div class="bar-label">Velocidade</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 0%" data-value="98%">
+                            <div class="bar-value">98%</div>
+                        </div>
+                        <div class="bar-label">Precisão</div>
+                    </div>
+                </div>
+                <div class="chart-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">+300%</div>
+                        <div class="stat-label">ROI</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">-65%</div>
+                        <div class="stat-label">Erros</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-image">
+                <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Notebook e dispositivos">
+                <div class="image-caption">Tecnologia Integrada</div>
+            </div>
+            <div class="tech-image">
+                <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Desenvolvimento web">
+                <div class="image-caption">Desenvolvimento Web</div>
+            </div>
         </div>
         
         <a href="https://wa.me/5511941831006?text=Seja+bem+vindo+ao+futuro,+oq+podemos+ajudar?" class="cta-button" target="_blank">SAIBA MAIS</a>
@@ -647,13 +892,28 @@
             }, 500);
         }
 
+        // Animação do gráfico de barras
+        function animateChart() {
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                const value = bar.getAttribute('data-value');
+                bar.style.height = value;
+            });
+        }
+
         // Iniciar animação das outras seções quando visíveis
         function startSectionAnimations() {
-            const sections = document.querySelectorAll('.quem-somos-section, .web321-section');
+            const sections = document.querySelectorAll('.quem-somos-section, .web321-section, .codekey-section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal');
+                        
+                        // Se for a seção CodeKey, animar o gráfico
+                        if (entry.target.id === 'codekey') {
+                            setTimeout(animateChart, 500);
+                        }
+                        
                         observer.unobserve(entry.target);
                     }
                 });
