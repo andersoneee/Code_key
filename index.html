@@ -306,10 +306,10 @@
             transform: translateY(0);
         }
 
-        /* Estilo do Gráfico Estatístico - AJUSTADO */
+        /* Estilo do Gráfico Estatístico - CORREÇÃO APLICADA AQUI */
         .chart-container {
-            width: 320px;
-            height: 240px;
+            width: 350px;
+            height: 260px;
             background: rgba(10, 10, 30, 0.7);
             border-radius: 15px;
             border: 2px solid rgba(0, 240, 255, 0.3);
@@ -329,7 +329,7 @@
         .chart-title {
             text-align: center;
             font-size: 1.1rem;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: var(--primary-color);
             font-family: 'Orbitron', sans-serif;
             font-weight: 600;
@@ -338,11 +338,11 @@
 
         .chart {
             width: 100%;
-            height: 140px;
+            height: 150px;
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
-            padding: 0 10px;
+            padding: 0 15px;
             position: relative;
         }
 
@@ -352,6 +352,7 @@
             align-items: center;
             height: 100%;
             position: relative;
+            width: 60px;
         }
 
         .bar {
@@ -361,40 +362,43 @@
             position: relative;
             transition: height 2s ease-in-out;
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .bar-value {
             position: absolute;
-            top: -35px;
+            top: -45px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.9rem;
             color: var(--primary-color);
             font-weight: bold;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 4px 8px;
+            border-radius: 6px;
             border: 1px solid var(--primary-color);
             white-space: nowrap;
             z-index: 10;
+            min-width: 45px;
+            text-align: center;
         }
 
         .bar-label {
             position: absolute;
-            bottom: -25px;
+            bottom: -35px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.8rem;
             color: #aaa;
             text-align: center;
             white-space: nowrap;
+            width: 100%;
         }
 
         .chart-stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 0.8rem;
         }
 
@@ -677,16 +681,20 @@
             }
             
             .chart-container {
-                height: 220px;
+                height: 240px;
             }
             
             .chart {
-                height: 120px;
+                height: 130px;
             }
             
             .bar-value {
-                top: -30px;
+                top: -40px;
                 font-size: 0.8rem;
+            }
+            
+            .bar-label {
+                bottom: -30px;
             }
         }
 
@@ -704,7 +712,7 @@
             }
             
             .chart-container {
-                height: 200px;
+                height: 220px;
                 padding: 15px;
             }
             
@@ -714,7 +722,11 @@
             
             .chart-title {
                 font-size: 1rem;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .bar-container {
+                width: 50px;
             }
         }
 
