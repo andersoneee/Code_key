@@ -211,6 +211,7 @@
             font-family: 'Exo 2', sans-serif;
             font-size: 1.2rem;
             margin-top: 2rem;
+            margin-bottom: 3rem; /* AUMENTEI O ESPAÇO AQUI */
             opacity: 0;
             transform: translateY(20px);
             transition: all 1s ease 2s;
@@ -308,16 +309,17 @@
 
         /* Estilo do Gráfico Estatístico - CORREÇÃO APLICADA AQUI */
         .chart-container {
-            width: 350px;
-            height: 260px;
+            width: 380px;
+            height: 280px;
             background: rgba(10, 10, 30, 0.7);
             border-radius: 15px;
             border: 2px solid rgba(0, 240, 255, 0.3);
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-            padding: 20px;
+            padding: 25px;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            margin-top: 20px; /* ADICIONEI ESPAÇO ACIMA DO GRÁFICO */
         }
 
         .chart-container:hover {
@@ -329,7 +331,7 @@
         .chart-title {
             text-align: center;
             font-size: 1.1rem;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             color: var(--primary-color);
             font-family: 'Orbitron', sans-serif;
             font-weight: 600;
@@ -338,7 +340,7 @@
 
         .chart {
             width: 100%;
-            height: 150px;
+            height: 160px;
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
@@ -352,40 +354,40 @@
             align-items: center;
             height: 100%;
             position: relative;
-            width: 60px;
+            width: 70px;
         }
 
         .bar {
-            width: 28px;
+            width: 30px;
             background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
             border-radius: 5px 5px 0 0;
             position: relative;
             transition: height 2s ease-in-out;
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-            margin-bottom: 40px;
+            margin-bottom: 50px; /* AUMENTEI O ESPAÇO AQUI */
         }
 
         .bar-value {
             position: absolute;
-            top: -45px;
+            top: -50px; /* AUMENTEI A DISTÂNCIA AQUI */
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.9rem;
             color: var(--primary-color);
             font-weight: bold;
             background: rgba(0, 0, 0, 0.9);
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 6px;
             border: 1px solid var(--primary-color);
             white-space: nowrap;
             z-index: 10;
-            min-width: 45px;
+            min-width: 50px;
             text-align: center;
         }
 
         .bar-label {
             position: absolute;
-            bottom: -35px;
+            bottom: -40px; /* AUMENTEI A DISTÂNCIA AQUI */
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.8rem;
@@ -398,7 +400,7 @@
         .chart-stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 25px;
+            margin-top: 30px;
             font-size: 0.8rem;
         }
 
@@ -681,20 +683,24 @@
             }
             
             .chart-container {
-                height: 240px;
+                height: 260px;
             }
             
             .chart {
-                height: 130px;
+                height: 140px;
             }
             
             .bar-value {
-                top: -40px;
+                top: -45px;
                 font-size: 0.8rem;
             }
             
             .bar-label {
-                bottom: -30px;
+                bottom: -35px;
+            }
+
+            .subtitle {
+                margin-bottom: 2rem; /* AJUSTE PARA MOBILE */
             }
         }
 
@@ -712,21 +718,25 @@
             }
             
             .chart-container {
-                height: 220px;
-                padding: 15px;
+                height: 240px;
+                padding: 20px;
             }
             
             .bar {
-                width: 22px;
+                width: 25px;
             }
             
             .chart-title {
                 font-size: 1rem;
-                margin-bottom: 25px;
+                margin-bottom: 30px;
             }
             
             .bar-container {
-                width: 50px;
+                width: 60px;
+            }
+
+            .subtitle {
+                margin-bottom: 1.5rem; /* AJUSTE PARA CELULAR PEQUENO */
             }
         }
 
